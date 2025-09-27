@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Viejo</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+
+        <h1 id="loading-text">Loading</h1>
+
+    <script>
+        const text = document.getElementById('loading-text');
+
+        let dots = 0;
+
+        setInterval(function() {
+            dots = (dots + 1) % 4;
+            text.textContent = 'Loading' + '.'.repeat(dots);
+        }, 500);
+
+        setTimeout(function() {
+            window.location.href = 'OldMan-Main.html'
+        }, 5000);
+    </script>
+
+    </body>
+</html>

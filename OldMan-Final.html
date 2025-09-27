@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <title>Para Marcel</title>
+</head>
+<body>
+    <div id="message-container">
+        <p id="typing-message"></p>
+    </div>
+
+<script>
+    const fullMessage = `Bueno bueno "hermanito" porque claro ahora el que va para abajo eres tu :)
+
+Es broma ya paro jeje todo esto es para fortalezerte ahora que has cumplido 30 muchas felicidades y espero que disfrutes de tu día te quiero decir y ahora en serio que te quiero un montón, que eres un hermano de 10 y muchas gracias por haber estado siempre para ayudarme con lo que he necesitado, gracias por enseñarme tantas cosas y decirme siempre las cosas como son, sabes que si tú algún día necesitas hablar yo estoy para lo que quieras que aunque seas el mayor somos un equipo.
+
+Te quiero y a Laura también un abrazo para los dos.`;
+
+    let currentText = "";
+    let currentIndex = 0;
+
+    function typeMessage() {
+        const messageElement = document.getElementById('typing-message');
+        
+        if (currentIndex < fullMessage.length) {
+            currentText += fullMessage[currentIndex];
+            messageElement.textContent = currentText;
+            currentIndex++;
+            setTimeout(typeMessage, 80);
+        }
+    }
+
+    setTimeout(typeMessage, 1000);
+</script>
+
+<style>
+    #message-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 50px 20px;
+        text-align: center;
+        min-height: 80vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    #typing-message {
+        font-size: 24px;
+        line-height: 1.6;
+        font-weight: 300;
+        white-space: pre-wrap;
+        text-align: left;
+        max-width: 700px;
+    }
+</style>
+</body>
+</html>

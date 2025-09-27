@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <title>Marcel's Truth</title>
+</head>
+<body>
+    <div id="gift-container">
+        <img id="giftbox" width="200" height="200" src="https://gallery.yopriceville.com/var/resizes/Free-Clipart-Pictures/Gifts-and-Chocolates-PNG-/Blue_Gift_Box_Transparent_Clip_Art_Image.png?m=1629832024">
+    </div>
+
+    <div id="text-container" style="display: none;">
+        <p id="typing-text"></p>
+    </div>
+
+    <!-- Imagen FAKE (inicialmente oculta) -->
+    <div id="fake-container" style="display: none; text-align: center; margin: 20px;">
+        <img id="fake-image" src="https://png.pngtree.com/png-vector/20231014/ourmid/pngtree-fake-stamp-in-red-color-with-line-vector-png-image_10241779.png" alt="FAKE" width="200">
+    </div>
+
+    <!-- Imagen TRUE (inicialmente oculta) -->
+    <div id="true-container" style="display: none; text-align: center; margin: 20px;">
+        <img id="true-image" src="https://static.vecteezy.com/system/resources/thumbnails/012/243/152/small_2x/check-mark-icon-sign-png.png" alt="TRUE" width="200">
+    </div>
+
+    <!-- Botón Next (inicialmente oculto) -->
+    <div id="next-container" style="display: none; text-align: center; margin: 30px;">
+        <button id="next-button">(Click) Alzheimer Prevention Test</button>
+    </div>
+
+
+
+<script>
+    const giftbox = document.getElementById('giftbox');
+    
+    // Variables para el texto
+    const fullText = "My name is Marcel and I'm a 28 y/o software developer from Barcelona, Spain.";
+    let currentText = "";
+    let currentIndex = 0;
+
+    function startTyping() {
+        const typingElement = document.getElementById('typing-text');
+        
+        // Texto hasta donde queremos parar: "My name is Marcel and I'm a 28 y/o"
+        const stopPoint = "My name is Marcel and I'm a 28 y/o";
+        
+        if (currentIndex < stopPoint.length) {
+            // Escribir hasta el punto de parada
+            currentText += fullText[currentIndex];
+            typingElement.textContent = currentText;
+            currentIndex++;
+            setTimeout(startTyping, 150);
+        } else if (currentIndex === stopPoint.length) {
+            // Cuando llegue a "28 y/o", parar y mostrar FAKE
+            showFake();
+        }
+    }
+
+    function showFake() {
+        // Mostrar imagen FAKE
+        const fakeContainer = document.getElementById('fake-container');
+        fakeContainer.style.display = 'block';
+        
+
+        
+        // Esperar 2 segundos y luego ocultar FAKE y empezar a borrar
+        setTimeout(function() {
+            fakeContainer.style.display = 'none';
+            startErasing();
+        }, 2000);
+    }
+
+    function startErasing() {
+        const typingElement = document.getElementById('typing-text');
+        
+        // Borrar hasta "My name is Marcel and I'm a "
+        const eraseToPoint = "My name is Marcel and I'm a ";
+        
+        if (currentText.length > eraseToPoint.length) {
+            currentText = currentText.slice(0, -1); // Quitar último carácter
+            typingElement.textContent = currentText;
+            setTimeout(startErasing, 150);
+        } else {
+            // Terminó de borrar, ahora reescribir
+            startRetyping();
+        }
+    }
+
+    function startRetyping() {
+        const typingElement = document.getElementById('typing-text');
+        const restOfText = "30 y/o software developer from Barcelona, Spain.";
+        const baseText = "My name is Marcel and I'm a ";
+        
+        // Calculamos qué carácter del texto nuevo estamos escribiendo
+        const newCharIndex = currentText.length - baseText.length;
+        
+        if (newCharIndex < restOfText.length) {
+            currentText += restOfText[newCharIndex];
+            typingElement.textContent = currentText;
+            setTimeout(startRetyping, 150);
+        } else {
+            // Terminó de reescribir, mostrar TRUE
+            showTrue();
+        }
+    }
+
+    function showTrue() {
+        // Mostrar imagen TRUE
+        const trueContainer = document.getElementById('true-container');
+        trueContainer.style.display = 'block';
+        
+
+        
+        // Mantener TRUE visible por 2 segundos
+        setTimeout(function() {
+             const nextContainer = document.getElementById('next-container');
+    nextContainer.style.display = 'block';
+        }, 2000);
+    }
+
+    giftbox.addEventListener('click', function() {
+        giftbox.style.opacity = '0';
+
+        setTimeout(function() {
+            giftbox.style.display = 'none';
+            
+            const textContainer = document.getElementById('text-container');
+            textContainer.style.display = 'block';
+            
+            startTyping();
+        }, 500);
+
+    // Botón Next para ir al test de Alzheimer
+document.getElementById('next-button').addEventListener('click', function() {
+    window.location.href = 'OldMan-AlzheimerTest.html';
+});
+
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <title>Marcel's Gallery</title>
+</head>
+<body>
+    <div id="gallery-container">
+        <h1>Marcel's Pictures</h1>
+        
+        <div id="photo-display">
+            <img id="current-photo" src="" alt="Photo" style="display: none;">
+        </div>
+        
+        <div id="photo-counter">
+            <span id="current-number">1</span> / <span id="total-number">10</span>
+        </div>
+        
+        <div id="navigation">
+            <button id="next-photo-btn" style="display: none;">Next</button>
+        </div>
+        
+        <div id="final-button-container" style="display: none;">
+            <button id="forgive-btn">Perdoname...</button>
+        </div>
+    </div>
+
+<script>
+    const photos = [
+        "https://roseramills.com/wp-content/uploads/2019/05/DD06652F-C5BC-4933-A8C3-E5A83E9775DE-800x600.jpeg",
+        "https://roseramills.com/wp-content/uploads/2019/05/5B412052-F0D8-4862-A121-FBCB74B629DE-800x1067.jpeg",
+        "https://i.pinimg.com/564x/36/38/cd/3638cd09c44a4a9cf6f94c64eee0b0b5.jpg",
+        "https://roseramills.com/wp-content/uploads/2019/05/05E36948-7BB8-49D0-83F9-2B59BDA955AF-800x600.jpeg",
+        "https://roseramills.com/wp-content/uploads/2019/05/B204F651-093B-46C8-B44E-DDB2C5EB35B1-800x800.jpeg",
+        "https://media.gettyimages.com/id/565887259/es/foto/close-up-of-older-caucasian-man-laughing.jpg?s=612x612&w=gi&k=20&c=klrB7NsGMchaPZOs0bxLeK2up1kB1Z8L5DO2mYU3hyo=",
+        "marcel1.png",
+        "marcel2.png",
+        "https://thumbs.dreamstime.com/b/very-nice-image-positive-old-man-mustache-29794344.jpg",
+        "marcel3.png"
+    ];
+
+    let currentPhotoIndex = 0;
+
+    function showPhoto() {
+        const photoElement = document.getElementById('current-photo');
+        const currentNumberElement = document.getElementById('current-number');
+        const nextButton = document.getElementById('next-photo-btn');
+        
+        if (currentPhotoIndex < photos.length) {
+            photoElement.src = photos[currentPhotoIndex];
+            photoElement.style.display = 'block';
+            currentNumberElement.textContent = currentPhotoIndex + 1;
+            
+            if (currentPhotoIndex === 0) {
+                nextButton.style.display = 'block';
+            }
+            
+            currentPhotoIndex++;
+        }
+    }
+
+    function nextPhoto() {
+        if (currentPhotoIndex < photos.length) {
+            showPhoto();
+        } else {
+            document.getElementById('next-photo-btn').style.display = 'none';
+            document.getElementById('final-button-container').style.display = 'block';
+        }
+    }
+
+    document.getElementById('next-photo-btn').addEventListener('click', nextPhoto);
+    
+    document.getElementById('forgive-btn').addEventListener('click', function() {
+        window.location.href = 'OldMan-Final.html';
+    });
+
+    showPhoto();
+</script>
+
+<style>
+    #gallery-container {
+        text-align: center;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    
+    h1 {
+        margin-bottom: 30px;
+        font-size: 32px;
+    }
+    
+    #photo-display {
+        margin: 30px 0;
+        min-height: 400px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    #current-photo {
+        max-width: 100%;
+        max-height: 500px;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+    }
+    
+    #photo-counter {
+        font-size: 24px;
+        margin: 20px 0;
+        font-weight: bold;
+    }
+    
+    #navigation {
+        position: fixed;
+        bottom: 50px;
+        right: 50px;
+    }
+    
+    #final-button-container {
+        position: fixed;
+        bottom: 50px;
+        right: 50px;
+    }
+    
+    #next-photo-btn, #forgive-btn {
+        padding: 15px 30px;
+        font-size: 18px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+    
+    #next-photo-btn:hover, #forgive-btn:hover {
+        background-color: #45a049;
+        transform: scale(1.05);
+    }
+    
+    #forgive-btn {
+        background-color: #f44336;
+        font-size: 20px;
+        padding: 20px 40px;
+    }
+    
+    #forgive-btn:hover {
+        background-color: #d32f2f;
+    }
+</style>
+</body>
+</html>

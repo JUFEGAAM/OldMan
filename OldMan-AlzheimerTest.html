@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <title>Alzheimer Prevention Test</title>
+</head>
+<body>
+    <div id="test-container">
+        <h1>🧠 Alzheimer Prevention Test</h1>
+        <p>Answer these questions to keep your mind sharp!</p>
+        
+        <div id="question-container">
+        </div>
+        
+        <div id="answer-container" style="display: none;">
+        </div>
+        
+        <div id="input-container" style="display: none;">
+            <input type="text" id="text-answer" placeholder="Write your answer...">
+            <button id="submit-answer">Submit</button>
+        </div>
+        
+        <div id="result-container" style="display: none;">
+        </div>
+    </div>
+
+<script>
+    const questions = [
+        {
+            question: "How much is 17 + 13?",
+            type: "text",
+            correctAnswer: "30"
+        },
+        {
+            question: "How much is 8 × 7?",
+            type: "text", 
+            correctAnswer: "56"
+        },
+        {
+            question: "Who is the current president of the United States?",
+            type: "text",
+            correctAnswer: "donald trump"
+        },
+        {
+            question: "What year are we in?",
+            type: "text",
+            correctAnswer: "2025"
+        },
+        {
+            question: "What extracurricular activity has your brother NOT done?",
+            type: "multiple",
+            options: ["Football", "Hip hop", "Boxing"],
+            correctAnswer: 2
+        }
+    ];
+
+    let currentQuestion = 0;
+    let correctAnswers = 0;
+
+    function showQuestion() {
+        const questionContainer = document.getElementById('question-container');
+        const answerContainer = document.getElementById('answer-container');
+        const inputContainer = document.getElementById('input-container');
+        
+        if (currentQuestion < questions.length) {
+            const q = questions[currentQuestion];
+            
+            questionContainer.innerHTML = `<h2>Question ${currentQuestion + 1}</h2><p>${q.question}</p>`;
+            
+            if (q.type === "multiple") {
+                answerContainer.style.display = 'block';
+                inputContainer.style.display = 'none';
+                
+                let optionsHTML = '';
+                q.options.forEach((option, index) => {
+                    optionsHTML += `<button class="option-btn" onclick="checkAnswer(${index})">${option}</button>`;
+                });
+                answerContainer.innerHTML = optionsHTML;
+                
+            } else {
+                answerContainer.style.display = 'none';
+                inputContainer.style.display = 'block';
+                document.getElementById('text-answer').value = '';
+                document.getElementById('text-answer').focus();
+            }
+        } else {
+            showResults();
+        }
+    }
+
+    function checkAnswer(selectedOption) {
+        const q = questions[currentQuestion];
+        
+        if (selectedOption === q.correctAnswer) {
+            correctAnswers++;
+        }
+        
+        nextQuestion();
+    }
+
+    function checkTextAnswer() {
+        const userAnswer = document.getElementById('text-answer').value.trim().toLowerCase();
+        const correctAnswer = questions[currentQuestion].correctAnswer.toLowerCase();
+        
+        if (userAnswer === correctAnswer) {
+            correctAnswers++;
+        }
+        
+        nextQuestion();
+    }
+
+    function nextQuestion() {
+        currentQuestion++;
+        setTimeout(() => {
+            showQuestion();
+        }, 500);
+    }
+
+    function showResults() {
+        const questionContainer = document.getElementById('question-container');
+        const answerContainer = document.getElementById('answer-container');
+        const inputContainer = document.getElementById('input-container');
+        const resultContainer = document.getElementById('result-container');
+        
+        questionContainer.style.display = 'none';
+        answerContainer.style.display = 'none';
+        inputContainer.style.display = 'none';
+        resultContainer.style.display = 'block';
+        
+        let resultMessage = '';
+        let funnyMessage = '';
+        
+        if (correctAnswers === questions.length) {
+            resultMessage = `🎉 Perfect! ${correctAnswers}/${questions.length} correct answers`;
+            funnyMessage = "Your mind is super sharp! Although... are you sure you haven't done boxing? 🥊😏";
+        } else if (correctAnswers >= 3) {
+            resultMessage = `😊 Good! ${correctAnswers}/${questions.length} correct answers`;
+            funnyMessage = "Your brain works pretty well, but maybe you need to review extracurricular activities! 😂";
+        } else {
+            resultMessage = `😅 ${correctAnswers}/${questions.length} correct answers`;
+            funnyMessage = "Hmm... maybe you need more practice? Or... could it be that you're 30 years old and it shows? 👴😂";
+        }
+        
+        resultContainer.innerHTML = `
+            <h2>Test Results</h2>
+            <p class="score">${resultMessage}</p>
+            <p class="funny-message">${funnyMessage}</p>
+            <button id="continue-btn">Continue to Photo Gallery</button>
+        `;
+        
+        document.getElementById('continue-btn').addEventListener('click', function() {
+            window.location.href = 'OldMan-PhotoGallery.html';
+        });
+    }
+
+    document.getElementById('submit-answer').addEventListener('click', checkTextAnswer);
+    
+    document.getElementById('text-answer').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            checkTextAnswer();
+        }
+    });
+
+    showQuestion();
+</script>
+</body>
+</html>
